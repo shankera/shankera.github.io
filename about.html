@@ -1,8 +1,10 @@
-
 <!doctype html>
 <html>
 <head>
 <meta charset="utf-8">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
     <LINK href="style/mainstyle.css" rel="stylesheet" type="text/css">
     <title>About Me</title>
 </head>
@@ -16,7 +18,15 @@
 		</h1>
 		<ul>
           <li class="page-collection">
-            <a href="about.html">About</a>
+            <a href="about.html">About Me</a>
+          </li>
+          <li class="folder-collection folder active-link active-folder">
+            <a id="notlink">Projects</a>
+              <ul>
+                <li class="page-collection">
+                  <a href="projects/mediacomplete.html">MediaComplete</a>
+                </li>
+              </ul>
           </li>
           <li class="folder-collection folder active-link active-folder">
             <a id="notlink">한국어 공부</a>
@@ -41,14 +51,12 @@
                 <li class="page-collection">
                   <a href="how-to/jenkins.html">Jenkins</a>
                 </li>
-                <li class="page-collection">
-                  <a href="how-to/git.html">Git</a>
-                </li>
               </ul>
           </li>
         </ul>
 	 </div>
 	 <div id="content">
+		<h1>About Me</h1>
 		<img id="face" src="./res/Arjun.png"/>
 		 <p>My name is Arjun Shanker.  I am currently living in Cleveland, Ohio. I work for an insurance company, on their native mobile applications team. I also spend a lot of my free time coding as well, since it's just something that I really enjoy to do.</p>
 		 <p>Outside of software, I enjoy video games (mostly competitive), learning languages and Korean music. I also enjoy rock climbing, which is the only physical activity I enjoy enough to do voluntarily.</p>
