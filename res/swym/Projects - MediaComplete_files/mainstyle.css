@@ -40,18 +40,18 @@ padding-left:20px;
    background-image:none !important;
    filter:none !important;
 }
-.carousel-inner > .item > img, .carousel-inner > .item > a > img {
-	margin-right: auto;
-	margin-left: auto;
-	width:519px;
-	height:600px;
+
+.carousel-inner>.active{
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
 }
-#settings {
-	margin-right: auto;
-	margin-left: auto;
-	margin-top:12.5%;
-	margin-bottom:auto;
-	height:369.44px;
+.carousel-inner>.next, .carousel-inner>.prev{
+    top: 50%;
+    transform: translateY(-50%);
+}
+.carousel-inner > .item > img, .carousel-inner > .item > a > img {
+    margin: auto;
 	width:519px;
 }
 /* unvisited link */
