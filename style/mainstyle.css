@@ -58,13 +58,13 @@ padding-left:20px;
 }
 /* unvisited link */
 a:link {
-    color: #000000;
+    color: #909090;
     text-decoration: none;
 }
 
 /* visited link */
 a:visited {
-    color: #000000;
+    color: #909090;
     text-decoration: none;
 }
 
@@ -74,12 +74,12 @@ a:hover {
     text-decoration: none;
 }
 #notlink{
-    color: #000000;
+    color: #909090;
 }
 
 /* selected link */
 a:active {
-    color: #000000;
+    color: #898989;
     text-decoration: none;
 }
 
@@ -90,4 +90,23 @@ a:active {
 }
 html {
   overflow-y: scroll;
+  background-color:#000000;
+  color:#909090;
 }
+body{
+	background-color:#000000;
+  color:#909090;
+  }
+pre, code {
+	background-color:#000000;
+  color:#909090;
+  border::#909090;
+  border-style:solid;
+  border-width:1px;
+  }
+  .link:hover{ 
+  opacity: 0.3; 
+  }
+  .block{
+  border-width:0;
+  }
