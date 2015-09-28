@@ -1,0 +1,10 @@
+# Site settings
+title: Arjun Shanker
+email: me@shankera.com
+description: >
+baseurl: "" # the subpath of your site, e.g. /blog/
+url: "http://shankera.com" # the base hostname & protocol for your site
+github_username:  shankera
+
+# Build settings
+markdown: kramdown

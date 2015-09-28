@@ -1,0 +1,34 @@
+---
+layout: post
+selected-150928: true
+selected-blog: true
+comments: true
+---
+<div id="content">
+  <h1>MediaComplete Pre-Mortem</h1>
+  <p>We started MediaComplete as a group of 5, during our Senior year at college. Between each quarter, we learned some pretty significant lessons that turned out to be fundamental concepts that we either blatantly neglected, or simply forgot amidst the other concepts we were trying to lock down.</p>
+  <p>After our first series of sprints, we found some significant issues in our architecture and design. As a result, we set ourselves up for failure, in a big way. Nearly a year later, and although the speed of development has slowed down considerably post-grad, we're still feeling the effects of those awful ideas.</p>
+
+  <center><h2>The Obvious</h2></center>
+  <p><b>Write unit tests</b> - This was one of the first things we picked up on. We would run into a function that we wrote, that fulfilled a purpose, but was untested. When someone tried to adapt it to fit their own needs within our app, the old functionality broke and we were stuck chasing ghosts, trying to figure out what did it.</p>
+  <p><b>Don't mix your V and your C</b> - We started with an MVC architecture loosely in mind. At the start, however, we were very lackadasical and casual about it. The huge drawback to this is when things that existed in our 'library' project started holding direct references to UI elements. The other side of this is when a sizeable portion of our UI controllers did business logic, instead of passing the values on through to the Controller. This resulted in substantial untestable code, residing in our View. Needless to say, a bad thing.</p>
+
+  <center><h2>The Less Obvious</h2></center>
+  <p><b>Write <i>GOOD</i> unit tests</b> - As it turned out, it wasn't enough to just write unit tests. In order for them to have any value at all, we needed to do a lot more work than we did. We came into a situation where our unit tests contained race conditions, where if they were run simultaneously, certain tests would fail, and if they were run in sequence, they would pass. This was only discovered because one team member runs their tests in a slightly more irritating way than everyone else. This discovery happened to unravel a deeply rooted problem where every test was creating data objects on the disk of the system it was running on, instead of mocking them for all but integration tests. As a result we ran into concurrency issues on those data objects, and tests started failing. The solution was to, as quickly as we could, introduce mock objects for our tests requiring data objects</p>
+  <p><b>Use useful and descriptive names</b> - This really ruined some evenings for us. There was too much time spent trying to figure out exactly what a class variable was used for, or what a function did. It's really easy to think, in the moment, that of COURSE this variable can't be mistaken for anything else, and it would take an IDIOT to not be able to understand this, but too often, I came across a class with my name annotated as author, and no idea what it was doing anymore.
+
+  <center><h2>The Downright Infuriating</h2></center>
+  <p><b>Pairing yourself to a file system is bad news</b> - Our goal for this application was for the user to be able to directly mirror their music directory in our application. This meant that the folder structure was exactly the same and the file names were represented in the UI, not just the file information. The side effect of this is that we needed to account for when a user modified a file outside of our application, through their file explorer. This manifested itself in some really difficult ways.</p>
+  <ul>
+    <li> We needed to be tied to the FileSystemWatcher, in order to update information when the user did things outside of the app. <i>Alright, that's ok.</i>
+    </li>
+    <li> We need to update files the second they modify things in our app.<i> Well, that's irritating if they have a file in use somewhere else, but we can mitigate some of that.</i>
+    </li>
+    <li>Our file-writes trigger new FileSystemWatcher events to occur.<i> Well, if our values have already been updated in app, then it doesnt matter if it changes, right?</i></li>
+    <li>The FileSystemWatcher starts Created, Deleted, and Renamed events for when a file is moved, and in no particuar order<i> So, a file can be deleted, then renamed, then created?</i>
+  </ul>
+  <p>The answer is yes. FileSystemWatcher events can happen in any order for any file, and there is a distinct possibility that any one of those events can cause an exception. Now, this may be in part because of the way that we had designed our app, and it is entirely possible that if we had started with this knowledge in mind, we could have found a way to handle these events with less exceptions. Regardless, this emphasizes the fact that we dove in head first without enough information about how to use some of the tools that we were definitely going to use.</p>
+
+  <center><h2>Conclusion</h2></center>
+  <p>In the end, we've come away with some major lessons learned. Plan your architecture with testing in mind, determine whether things are too tightly coupled before you dive to deep into the code, and don't ignore things that could become bigger problems, just because it's inconvenient in the moment. After some time, it may turn out to be a whole different beast, which you could have wrangled earlier but is now totally unmanageable. Finally, one of the most important lessons we learned, is that it's really important to give a shit about the project you are working on. If you don't even have the smallest concern about what the final application is, or you don't even care about solving the little challenges that you're going to encounter over the course of development, your code will suffer, and your teammates will suffer. It's hard to write good code if you don't care, and it's even harder for other people to maintain that code.</p>
+</div>

@@ -1,183 +1,95 @@
-<!doctype html>
-<html>
-	<head>
-		<meta charset="utf-8">
-			<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
-			</script>
-			<script src="../js/bootstrap.min.js">
-			</script>
-			<link href="../css/bootstrap.min.css" rel="stylesheet"/>
-			<LINK href="../style/mainstyle.css" rel="stylesheet" type="text/css"/>
-			<title>How To: Jenkins</title>
-		</head>
-		<body >
-			<!-- Google Tag Manager -->
-			<noscript>
-				<iframe src="//www.googletagmanager.com/ns.html?id=GTM-5F7B7T"
-height="0" width="0" style="display:none;visibility:hidden"/>
-			</noscript>
-			<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-				new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-				j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-				'//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-				})(window,document,'script','dataLayer','GTM-5F7B7T');</script>
-			<!-- End Google Tag Manager -->
-			<div class="container">
-				<div id="sidebar">
-					<div id="inner">
-						<h1 class="logo site-title">
-							<a href="../index.html">
-				Arjun Shanker
-							</a>
-						</h1>
-						<div id="sidebar">
-							<ul class="nav nav-sidebar">
-								<li>
-									<a href="../about.html">About Me</a>
-								</li>
-							</ul>
-							<ul class="nav nav-sidebar">
-								<li>
-									<a class="notlink"  data-toggle="collapse" href="#collapseOne" >Projects</a>
-								</li>
-								<div id="collapseOne" class="panel-collapse collapse">
-									<ul  class="nav nav-sidebar">
-										<li>
-											<a href="../projects/mediacomplete.html">MediaComplete</a>
-										</li>
-										<li>
-											<a href="../projects/swym.html">Swym</a>
-										</li>
-									</ul>
-								</div>
-							</li>
-						</ul>
-						<ul class="nav nav-sidebar">
-							<li>
-								<a class="notlink" data-toggle="collapse" href="#collapseTwo">한국어 공부</a>
-							</li>
-							<div id="collapseTwo" class="panel-collapse collapse">
-								<ul  class="nav nav-sidebar">
-									<li>
-										<a href="../lessons/1-en.html">제1 일과 –  영어</a>
-									</li>
-									<li>
-										<a href="../lessons/1-kr.html">제1 일과 – 한국어</a>
-									</li>
-									<li>
-										<a href="../lessons/2-en.html">제2 일과 – 영어</a>
-									</li>
-									<li>
-										<a href="../lessons/2-kr.html">제2 일과 – 한국어</a>
-									</li>
-								</ul>
-							</div>
-						</ul>
-						<ul class="nav nav-sidebar">
-							<li>
-								<a class="notlink" data-toggle="collapse"  href="#collapseThree">How To</a>
-							</li>
-						</li>
-						<div id="collapseThree" class="panel-collapse collapse  in">
-							<ul  class="nav nav-sidebar">
-								<li class="active-link">
-									<a href="jenkins.html">Jenkins</a>
-								</li>
-							</ul>
-						</div>
-					</ul>
-				</div>
-			</div>
-		</div>
-		<div id="content">
-			<h2>How to Create a Jenkins Server in Ubuntu</h2>
-			<h3>Installing Jenkins</h3>
-			<p>The first step to getting a Jenkins server running on Ubuntu is to install Jenkins. There are 4 basic steps to installing Jenkins. These have been taken directly from the Jenkins install guide.</p>
-			<ul>
-				<li>Add the Jenkins Key <br/>
-					<code>wget -q -O - http://pkg.jenkins-ci.org/debian/jenkins-ci.org.key | apt-key add -</code>
-				</li>
-				<li>Create a Sources List<br/>
-					<code>echo deb http://pkg.jenkins-ci.org/debian binary/ &gt; /etc/apt/sources.list.d/jenkins.list</code>
-				</li>
-				<li>Update the apt cache<br/>
-					<code>sudo apt-get update</code>
-				</li>
-				<li>Install Jenkins<br/>
-					<code>sudo apt-get install jenkins</code>
-				</li>
-			</ul>
-			<p>This process downloads and installs Jenkins and all it’s dependencies to your machine. Now, Jenkins can be configured for your specific purpose.</p>
+---
+layout: default
+selected-jenkins: true
+selected-howto: true
+title: How-To&#58; Jenkins
+---
+<div id="content">
+	<h2>How to Create a Jenkins Server in Ubuntu</h2>
+	<h3>Installing Jenkins</h3>
+	<p>The first step to getting a Jenkins server running on Ubuntu is to install Jenkins. There are 4 basic steps to installing Jenkins. These have been taken directly from the Jenkins install guide.</p>
+	<ul>
+		<li>Add the Jenkins Key <br/>
+			<code>wget -q -O - http://pkg.jenkins-ci.org/debian/jenkins-ci.org.key | apt-key add -</code>
+		</li>
+		<li>Create a Sources List<br/>
+			<code>echo deb http://pkg.jenkins-ci.org/debian binary/ &gt; /etc/apt/sources.list.d/jenkins.list</code>
+		</li>
+		<li>Update the apt cache<br/>
+			<code>sudo apt-get update</code>
+		</li>
+		<li>Install Jenkins<br/>
+			<code>sudo apt-get install jenkins</code>
+		</li>
+	</ul>
+	<p>This process downloads and installs Jenkins and all it’s dependencies to your machine. Now, Jenkins can be configured for your specific purpose.</p>
 
-			<h3>Installing Git</h3>
-			<p>Installing Git is even more simple than installing Jenkins. It is a simple command.</p>
-			<p>
-				<code>	sudo apt-get install git</code>
-			</p>
+	<h3>Installing Git</h3>
+	<p>Installing Git is even more simple than installing Jenkins. It is a simple command.</p>
+	<p>
+		<code>	sudo apt-get install git</code>
+	</p>
 
-			<h3>Install the Git Plugin for Jenkins</h3>
-			<p>Now that Jenkins is running on your machine, the Git plugin must be installed. To do this navigate, go to 
-				<code>&lt;Jenkins_URL&gt;/pluginManager</code>. By default, the Jenkins Server can be accessed by typing 
-				<code>localhost:8080</code>
-			into your address bar. Scroll through the available listed plugins untill you find ones for GIT, then select them. Press the button which says “Download now and install after restart”. The files will begin downloading, and should be ready to use after your server restarts.
-			</p>
-			<center>
-				<img src="jenkins/git-plugin.PNG" width=850px align="middle"/>
-			</center>
+	<h3>Install the Git Plugin for Jenkins</h3>
+	<p>Now that Jenkins is running on your machine, the Git plugin must be installed. To do this navigate, go to
+		<code>&lt;Jenkins_URL&gt;/pluginManager</code>. By default, the Jenkins Server can be accessed by typing
+		<code>localhost:8080</code>
+	into your address bar. Scroll through the available listed plugins untill you find ones for GIT, then select them. Press the button which says “Download now and install after restart”. The files will begin downloading, and should be ready to use after your server restarts.
+	</p>
+	<center>
+		<img src="jenkins/git-plugin.PNG" width=850px align="middle"/>
+	</center>
 
-			<h3>Creating an SSH Key </h3>
-			<p>In order for the repository on BitBucket to communicate with the Jenkins Server, there must be some form of authentication between the two. This is done by creating an SSH key, and adding it to BitBucket. The steps for creating an SSH key are very straightforward.</p>
-			<p>First, you must access the Jenkins account on your machine. When Jenkins installs on your machine, it creates an account named jenkins. In order to access this account you must type into the terminal: </p>
-			<p>
-				<code>sudo su jenkins</code>
-			</p>
-			<center>
-				<img src="jenkins/sudo-su.PNG" width=250px align="middle"/>
-			</center>
-			<p>This allows you access to the computer as the jenkins user. Now, when you create your SSH key, it is created for the Jenkins user, and not for the local user. To create the SSH key, type the following command into the terminal: </p>
-			<p>
-				<code>ssh-keygen</code>
-			</p>
-			<p>You will be prompted for a passphrase, which should be left empty. After this command runs, it creates two files, <code>id_rsa</code> and <code>id_rsa.pub</code>. These files are saved in a folder called <code>.ssh</code> in the Jenkins user’s directory.</p>
-			<center>
-				<img src="jenkins/ssh-keygen.PNG" width=500px align="middle"/>
-			</center>
+	<h3>Creating an SSH Key </h3>
+	<p>In order for the repository on BitBucket to communicate with the Jenkins Server, there must be some form of authentication between the two. This is done by creating an SSH key, and adding it to BitBucket. The steps for creating an SSH key are very straightforward.</p>
+	<p>First, you must access the Jenkins account on your machine. When Jenkins installs on your machine, it creates an account named jenkins. In order to access this account you must type into the terminal: </p>
+	<p>
+		<code>sudo su jenkins</code>
+	</p>
+	<center>
+		<img src="jenkins/sudo-su.PNG" width=250px align="middle"/>
+	</center>
+	<p>This allows you access to the computer as the jenkins user. Now, when you create your SSH key, it is created for the Jenkins user, and not for the local user. To create the SSH key, type the following command into the terminal: </p>
+	<p>
+		<code>ssh-keygen</code>
+	</p>
+	<p>You will be prompted for a passphrase, which should be left empty. After this command runs, it creates two files, <code>id_rsa</code> and <code>id_rsa.pub</code>. These files are saved in a folder called <code>.ssh</code> in the Jenkins user’s directory.</p>
+	<center>
+		<img src="jenkins/ssh-keygen.PNG" width=500px align="middle"/>
+	</center>
 
-			<h3>Adding the Deployment Key to BitBucket</h3>
-			<p>To add the Deployment Key to the BitBucket repository, navigate to the repository in a browser. Click the gear icon on the right side of the screen to access the repository settings. Click the link called “Deployment Keys” on the Repository details list on the left side of the screen . You should now see a screen with a button asking you to add a key. Before clicking this link, it is a good idea to open the file containing the Deployment key.</p>
-			<p>This file contains the key that BitBucket will use to authenticate the Jenkins Server. If you are unable to open the file with the jenkins account, you may have to switch to the normal user, and sudo into the file, which is what the image below shows.</p>
-			<center>
-				<img src="jenkins/id-rsa.PNG" width=500px align="middle"/>
-			</center>
-			<p>Opening this file should show you a large block of text. Press the Add Key button in BitBucket and copy all of the text from the file into the text box in BitBucket. Create a Label for the key which identifies what machine or user it is for, then press Add Key.</p>
-			<center>
-				<img src="jenkins/add-ssh-key.PNG" width=500px align="middle"/>
-			</center>
-			<p>To confirm that the key has been properly added to BitBucket and that the Jenkins server can communicate with BitBucket, sudo su back into the jenkins user on your machine, then enter the following command into your terminal:</p>
-			<p>
-				<code>ssh git@bitbucket.com</code>
-			</p>
-			<p>This is done to verify that the Jenkins user on the machine is correctly connecting to the BitBucket Server. You may get a message asking if you want to trust this connection, which you should enter ‘yes’. If you get a message saying that you have been logged in as your username in BitBucket, then you have been successfully connected.</p>
-			<center>
-				<img src="jenkins/ssh-git.PNG" width=500px align="middle"/>
-			</center>
+	<h3>Adding the Deployment Key to BitBucket</h3>
+	<p>To add the Deployment Key to the BitBucket repository, navigate to the repository in a browser. Click the gear icon on the right side of the screen to access the repository settings. Click the link called “Deployment Keys” on the Repository details list on the left side of the screen . You should now see a screen with a button asking you to add a key. Before clicking this link, it is a good idea to open the file containing the Deployment key.</p>
+	<p>This file contains the key that BitBucket will use to authenticate the Jenkins Server. If you are unable to open the file with the jenkins account, you may have to switch to the normal user, and sudo into the file, which is what the image below shows.</p>
+	<center>
+		<img src="jenkins/id-rsa.PNG" width=500px align="middle"/>
+	</center>
+	<p>Opening this file should show you a large block of text. Press the Add Key button in BitBucket and copy all of the text from the file into the text box in BitBucket. Create a Label for the key which identifies what machine or user it is for, then press Add Key.</p>
+	<center>
+		<img src="jenkins/add-ssh-key.PNG" width=500px align="middle"/>
+	</center>
+	<p>To confirm that the key has been properly added to BitBucket and that the Jenkins server can communicate with BitBucket, sudo su back into the jenkins user on your machine, then enter the following command into your terminal:</p>
+	<p>
+		<code>ssh git@bitbucket.com</code>
+	</p>
+	<p>This is done to verify that the Jenkins user on the machine is correctly connecting to the BitBucket Server. You may get a message asking if you want to trust this connection, which you should enter ‘yes’. If you get a message saying that you have been logged in as your username in BitBucket, then you have been successfully connected.</p>
+	<center>
+		<img src="jenkins/ssh-git.PNG" width=500px align="middle"/>
+	</center>
 
-			<h3>Creating a New Jenkins Project</h3>
-			<p>The next step of setting up your project with Jenkins is to create the actual project within Jenkins. This is done by clicking the New Item link on the left side of the main screen in Jenkins. The most standard selection for this purpose is the first option, the free-style software project. Enter the name for your project, then check the radio button and press OK. <center>
-					<img src="jenkins/jenkins-project.PNG" width=850px align="middle"/>
-				</center>You should now be able to see your Project on the main screen in Jenkins.</p>
+	<h3>Creating a New Jenkins Project</h3>
+	<p>The next step of setting up your project with Jenkins is to create the actual project within Jenkins. This is done by clicking the New Item link on the left side of the main screen in Jenkins. The most standard selection for this purpose is the first option, the free-style software project. Enter the name for your project, then check the radio button and press OK. <center>
+			<img src="jenkins/jenkins-project.PNG" width=850px align="middle"/>
+		</center>You should now be able to see your Project on the main screen in Jenkins.</p>
 
-			<h3>Add Your Repository to Your Project</h3>
-			<p>The next step of this process is to add your repository information to your Jenkins project. In order to do this, you must click your project’s name on the Jenkins home screen, then select configure, on the left side of the screen. <center>
-					<img src="jenkins/add-repo.PNG" width=850px align="middle"/>
-				</center> In this screen, you should see an option, in the Source Code Management section for Git. Click the radio button. You should now see a text box to enter the URL for your git repository. Enter the repository as you would if you were writing a git clone command for SSH. There is also an option to copy the URL on the Repository page in BitBucket. The HTTPS URL for a clone command will not work and cannot be used. It must be the SSH git URL.</p>
-			<p>Once you add this to your settings and save, you can click the build now button on the left side of the screen. Jenkins will pull your repository, and build it. If everything goes well, then it will say that the build succeeded on the left side.</p>
+	<h3>Add Your Repository to Your Project</h3>
+	<p>The next step of this process is to add your repository information to your Jenkins project. In order to do this, you must click your project’s name on the Jenkins home screen, then select configure, on the left side of the screen. <center>
+			<img src="jenkins/add-repo.PNG" width=850px align="middle"/>
+		</center> In this screen, you should see an option, in the Source Code Management section for Git. Click the radio button. You should now see a text box to enter the URL for your git repository. Enter the repository as you would if you were writing a git clone command for SSH. There is also an option to copy the URL on the Repository page in BitBucket. The HTTPS URL for a clone command will not work and cannot be used. It must be the SSH git URL.</p>
+	<p>Once you add this to your settings and save, you can click the build now button on the left side of the screen. Jenkins will pull your repository, and build it. If everything goes well, then it will say that the build succeeded on the left side.</p>
 
-			<h3>Configure Jenkins to Run ANT Scripts</h3>
-			<p>Now that your project has been set up, and configured to your git repository, you can tell Jenkins to run ANT build scripts. To do so, you must add a build step under the Build properties, on your project configuration screen. <center>
-					<img src="jenkins/invoke-ant.PNG" width=500px align="middle"/>
-				</center> Commit your build.xml and build.properties files to your repository, and build the project in Jenkins to run the tests.</p>
-		</div>
-	</div>
-</body>
-</html>
+	<h3>Configure Jenkins to Run ANT Scripts</h3>
+	<p>Now that your project has been set up, and configured to your git repository, you can tell Jenkins to run ANT build scripts. To do so, you must add a build step under the Build properties, on your project configuration screen. <center>
+			<img src="jenkins/invoke-ant.PNG" width=500px align="middle"/>
+		</center> Commit your build.xml and build.properties files to your repository, and build the project in Jenkins to run the tests.</p>
+</div>
