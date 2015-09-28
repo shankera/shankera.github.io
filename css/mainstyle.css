@@ -111,26 +111,30 @@ a:active {
 }
 html {
   overflow-y: scroll;
-  background-color:#000000;
+  background-color:#00001E;
   color:#909090;
 }
 body{
-	background-color:#000000;
+	background-color:#00001E;
   color:#909090;
   }
 pre, code {
-	background-color:#000000;
+	background-color:#00001E;
   color:#909090;
   border::#909090;
   border-style:solid;
   border-width:1px;
-  }
-  .link:hover{
+}
+b{
+	font-size: 20px;
+}
+.link:hover{
   opacity: 0.3;
-  }
-  .block{
+}
+.block{
   border-width:0;
-  }
-	footer{
-		margin-top:30px;
-	}
+}
+footer{
+	margin-top:30px;
+	margin-bottom: 30px;
+}
