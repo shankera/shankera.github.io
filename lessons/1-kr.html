@@ -1,0 +1,27 @@
+---
+layout: default
+---
+<div id="content">
+	<h1>Lesson 1: Sorting Algorithms - Korean</h1>
+	<h2>거품 정렬</h2>
+	<p>
+거품 정렬은 정렬 알고리즘이다.  그 세트가 2개 자료들 비교하다.  마지막 자료가 더 크지 많으면 아니거든 자료들을 뒤바꾼다.  그렇게 다음 자료도 뒤바뀐다.  모든 밤복을 마치면 가장 큰 자료 세트가 마지막까지 음직안다.  그것에는 일장일단이 있다.  거품 정렬의 주된 장점은 구현하기가 쉽다는 것이다.  하지만, 이 알고리즘은 느려 터졌다.  그래서 더 큰 세트에는 더 좋은 알고리즘이 있다.  그 평균 시간 복잡도와 최악 시간 복잡도가 O(n<sup>2</sup>)이다.  그 최고 시간 복잡도가 O(n)이다, 그럼 이것들 상태가 나쁜이다.
+	</p>
+	<h3>예제 코드</h3>
+	<pre>
+		<code class="block">def main():
+	list = [6,5,37,2,7,3,6,42,67,3,17,25]
+	sorted = False
+	while not sorted:
+	  sorted = True
+	  for item in range(0, len(list) - 1):
+		 if list[item] &gt; list[item+1]:
+			sorted = False
+			list[item], list[item+1] = list[item+1], list[item]
+main()</code>
+					</pre>
+					<h2>퀵 정렬</h2>
+					<p>
+			퀵 정렬은 다른 정렬 알고리즘이다.  그 세트가 1개 자료 선발하다.  그 자료을 자료들는 보다 크다 후에 움직이다 그리고 자료들는 보다 작다 앞에 움직이다.  이 과정가 서브세트에 모든 자료들 재귀적으로하다.  이 정렬가 거품 정렬에 더 어려운이다, 하지만 더 유능한이다.  그 평균 시간 복잡도와 최고 시간 복잡도 O(n log n)이다.  그 최악 시간 복잡도가 O(n<sup>2</sup>)이다.
+					</p>
+</div>
