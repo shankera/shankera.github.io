@@ -74,6 +74,14 @@ a:hover {
     color: #FF00FF;
     text-decoration: none;
 }
+a.pinklink:link, a.pinklink:visited{
+	color: #FF00FF;
+	text-decoration: none;
+}
+a.pinklink:hover{
+	color: #3D003D;
+	text-decoration: none;
+}
 .nav-sidebar > li > a{
 	width:100%;
 }
