@@ -1,33 +1,19 @@
-.container {
-	position:relative;
-	padding:0 0 0 250px;
-	width=100%;
-}
+
 .site-title{
 padding-left:20px;
 }
-#sidebar {
-  position:absolute;
-	left:20px;
-	float:left;
-	height:100%;
-	width:175px;
-}
-#inner{
-	    position:fixed;
-			width: 225px;
-}
+
 #sidebar-wrapper {
-  position:absolute;
+	position:absolute;
 	left:20px;
 	float:left;
 	height:100%;
 	width:175px;
 	margin-right: 50px;
 }
-
 #content {
 	padding-top:20px;
+	padding-right: 20px;
 }
 
 #icons{
@@ -153,4 +139,79 @@ b{
 footer{
 	margin-top:30px;
 	margin-bottom: 30px;
+}
+@media screen and (min-width: 750px) {
+	.container {
+		position:relative;
+		padding:0 0 0 250px;
+		width=100%;
+	}
+	#sidebar {
+	  position:absolute;
+		left:20px;
+		float:left;
+		height:100%;
+		width:175px;
+	}
+	#inner{
+    position:fixed;
+		width: 225px;
+	}
+	#menuToggle{
+		visibility: collapse;
+	}
+}
+@media screen and (max-width: 749px) {
+	.container {
+		position:relative;
+		padding:0 0 0 95px;
+		width=100%;
+	}
+	#sidebar {
+		visibility: collapse;
+		width: auto;
+		height: 0;
+	}
+	#sidebar.toggled{
+		padding-top:20px;
+		visibility: visible;
+	  position:absolute;
+		left:20px;
+		float:left;
+		height:100%;
+		width:175px;
+	}
+	#inner{
+		z-index: 1;
+		background-color: #000000;
+		color:  #000000;
+		background:  #000000;
+		visibility: collapse;
+		width: auto;
+		height: 100%;
+		margin-top:80px;
+	}
+	#inner.toggled{
+		visibility: visible;
+    position:fixed;
+		width: 225px;
+	}
+	#menuToggle{
+		border: 0;
+		visibility: visible;
+		height: 60px;
+    position:fixed;
+		width: 60px;
+		margin-top: 20px;
+    background-image: url(/res/hamburger.png);
+	}
+	#menuToggle.toggled{
+		border: 0;
+		visibility: visible;
+		height: 60px;
+    position:fixed;
+		width: 60px;
+		margin-top: 20px;
+    background-image: url(/res/hamburgerpressed.png);
+	}
 }
