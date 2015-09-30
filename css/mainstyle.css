@@ -159,6 +159,7 @@ footer{
 	}
 	#menuToggle{
 		visibility: collapse;
+		height: 0;
 	}
 }
 @media screen and (max-width: 749px) {
