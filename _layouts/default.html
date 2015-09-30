@@ -11,10 +11,18 @@
 
         {% include sidebar.html %}
 
-          <div class="page-content">
-            <div class="wrapper">
+          <div class="page-content  body-fillcanvas">
+            <div class="body-wrapper">
               {{ content }}
             </div>
+            <script type="text/javascript">
+              $(document).ready(function(){
+                $('[data-toggle=offcanvas]').click(function(){
+                  $('.row-offcanvas').toggleClass('toggled');
+                  $('.body-fillcanvas').toggleClass('toggled');
+                })
+              })
+            </script>
           </div>
           {% if page.comments %}
             <div id="disqus_thread"></div>
