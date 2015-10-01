@@ -156,6 +156,7 @@ footer{
 	#inner{
     position:fixed;
 		width: 225px;
+		height:100%
 	}
 	#menuToggle{
 		visibility: collapse;
@@ -165,7 +166,7 @@ footer{
 @media screen and (max-width: 749px) {
 	.container {
 		position:relative;
-		padding:0 0 0 95px;
+		padding:0 0 0 65px;
 		width=100%;
 	}
 	#sidebar {
@@ -196,23 +197,33 @@ footer{
 		visibility: visible;
     position:fixed;
 		width: 225px;
+		height:80%
 	}
 	#menuToggle{
 		border: 0;
 		visibility: visible;
-		height: 60px;
+		height: 30px;
     position:fixed;
-		width: 60px;
+		width: 30px;
 		margin-top: 20px;
     background-image: url(/res/hamburger.png);
+		background-size: 30px 30px;
 	}
 	#menuToggle.toggled{
 		border: 0;
 		visibility: visible;
-		height: 60px;
+		height: 30px;
     position:fixed;
-		width: 60px;
+		width: 30px;
 		margin-top: 20px;
     background-image: url(/res/hamburgerpressed.png);
+		background-size: 30px 30px;
 	}
+}
+#inner{
+
+	overflow-y: auto;
+}
+::-webkit-scrollbar {
+    display: none;
 }
