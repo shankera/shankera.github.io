@@ -104,7 +104,10 @@ a:active {
     color: #898989;
     text-decoration: none;
 }
-
+#hairlogo{
+	height: 140px;
+	margin-left: 15px;
+}
 #face{
 	height:10em;
 	float:right;
