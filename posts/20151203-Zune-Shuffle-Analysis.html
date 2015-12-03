@@ -1,0 +1,85 @@
+---
+layout: post
+selected-151203: true
+selected-blog: true
+title: Zune Shuffle Analysis
+comments: true
+---
+<div id="content">
+  <p>As I was driving to work on day, I noticed myself shuffling and re-shuffling the playlist I was listening to, because I felt like I had <i>just</i> heard that song already. The playlist I was listening had just over 150 songs, which is surely enough to distribute some variety throughout my morning commute. This got me thinking that my mp3 player, my beloved Zune HD, had a flawed shuffling algorithm. Over the course of the day, I continued to listen and I tried to pay attention to songs that I had already heard earlier that day and how often they came up again, if I re-shuffled the playlist. By the time I drove back that day, I was convinced that there was a flaw here, and I wanted to figure exactly why.</p>
+  <center><h2>About Shuffling</h2></center>
+  <p>For those of you unfamiliar with how Zunes work, I'll provide you with some information. On a zune device, when you play a playlist, the songs are all added to your 'Now Playing Queue'. From the 'Now Playing' screen, you can see exactly where you are in the list. If the list is shuffled, the <i>currently selected song</i> becomes the first song in the playlist, and the rest of the songs are shuffled after it. Moving to the next song and re-shuffling now causes that song to be the first song in the playlist, and your former first song gets shuffled into the list.</p>
+  <p>In my brief research for sorting algorithms, it quickly became apparent that there was only one real shuffling algorithm, the Knuth Fisher-Yates Algorithm. Briefly stated it is:
+	<pre><code class="block">def shuffle(list):
+    for i, x in enumerate(list):
+        j = random.randrange(i,len(list))
+        list[i], list[j] = list[j], list[i]</code></pre>
+  The key here is that as the index increases, the randomly selected swap index reduces to the remaining unshuffled indexes. The common incorrect implmentation is to have the randomly generated index be any index, for the entire shuffle. This can create an inequal distribution as described in<a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle#Implementation_errors" class=pinklink> this Wikiedia article.</a> Given this information, I came up with a few ways to try and reproduce the Zune's shuffling algorthm.</p>
+  <center><h2>Algorithm Design</h2></center>
+  <p>Before I implemented anything, I tried to figure out exactly what I was trying to achieve here.</p>
+  <ol>
+    <li> The 0 index will be the first element in the list. After shuffling, the element must remain at the first position.
+    </li>
+    <li> The 1 index will be the second element in the list.
+    </li>
+    <li> The distance between 0 and the new index of 1 is the measure that will be used to determine how poor a shuffle is.
+    </li>
+    <li> Any implemention must use both the Knuth Fisher-Yates and the most common incorrect implementation.
+    </li>
+  </ol>
+  <p>The reason I decided to use the first and second element in the list, was because the issue stemmed from the idea that certain songs were being played too much. I wanted to be able to determine if a single song had any bias in its placement in the list. At that point, it could have been any two songs in the list, but it was easy to keep track of the first two.</p>
+  <p> Given these rules, I was able to think of three reasonable implementations for this algorithm. </p>
+  <ol>
+    <li> Shift - Shuffle the list. Split the list at the new index of the 0 element. Append the slice before the 0 element to the end of the list.
+    </li>
+    <li> Swap - Shuffle the list. Swap the first element with the new location of the 0 element.
+    </li>
+    <li> Zero-Index - Shuffle the list from the second element to the last element. The first element never moves.
+    </li>
+  </ol>
+  <p>For all of these implementations, the sort was done twice - with the 'Good' and 'Bad' shuffles. The standard number of values per list became 25, because I thought that it would be enough to contribute enough to create a diverse sample at a small sample size, and show divergence at a large sample size.</p>
+  <center><h2>The Experiment!</h2></center>
+  <p>I created a Python script to shuffle a list of 25 elements according to my rules, 1000 times. I thought that this would be enough shuffles to show any potential sources of bias due to the sorting method. I also thought this would be a reasonable number of shuffles for me to track on my Zune.</p>
+  <br/>
+  <center>
+    <img src="../res/blog/20151203-Zune-Shuffle-Analysis/Shift-Good-1000.PNG" width=250px align="middle"/>
+    <img src="../res/blog/20151203-Zune-Shuffle-Analysis/Zero-Index-Good-1000.PNG" width=250px align="middle"/>
+    <img src="../res/blog/20151203-Zune-Shuffle-Analysis/Swap-Good-1000.PNG" width=250px align="middle"/>
+    <img src="../res/blog/20151203-Zune-Shuffle-Analysis/Shift-Bad-1000.PNG" width=250px align="middle"/>
+    <img src="../res/blog/20151203-Zune-Shuffle-Analysis/Zero-Index-Bad-1000.PNG" width=250px align="middle"/>
+    <img src="../res/blog/20151203-Zune-Shuffle-Analysis/Swap-Bad-1000.PNG" width=250px align="middle"/>
+  </center>
+  <br/>
+  <p>At first glance, it appeared that the Zero-Index shuffle had the most consistent spread of values. The shifted list seemed to have a similarly consistent spread, with a few outlying values, causing some peaks or valleys. The shuffle then swap seemed to have the least consistent spread, with some more deviation between points.</p>
+  <p>However, when I looked at all of the graphs together, they all look very similar.  Based on these graphs, I wasn't convinced that this was an accurate representative of the potential sources of bias. Therefore, I added a '0' to the script and ran it again.</p>
+  <br/>
+  <center>
+    <img src="../res/blog/20151203-Zune-Shuffle-Analysis/Shift-Good-10000.PNG" width=250px align="middle"/>
+    <img src="../res/blog/20151203-Zune-Shuffle-Analysis/Zero-Index-Good-10000.PNG" width=250px align="middle"/>
+    <img src="../res/blog/20151203-Zune-Shuffle-Analysis/Swap-Good-10000.PNG" width=250px align="middle"/>
+    <img src="../res/blog/20151203-Zune-Shuffle-Analysis/Shift-Bad-10000.PNG" width=250px align="middle"/>
+    <img src="../res/blog/20151203-Zune-Shuffle-Analysis/Zero-Index-Bad-10000.PNG" width=250px align="middle"/>
+    <img src="../res/blog/20151203-Zune-Shuffle-Analysis/Swap-Bad-10000.PNG" width=250px align="middle"/>
+  </center>
+  <br/>
+  <p>So, with a larger set of data there is even less of a discernable bias. The deviation in values is smaller and more consistent, and there isn't even a noticible difference between the correct and incorrectly implemented sorts. As a last attempt to find some sort of bias, I ran the script with 100,000 shuffles. This number was chosen partially because it's a simple increase in order of magnitude, and also because my spreadsheet crashed when I tried to enter a larger data set.</p>
+  <br/>
+  <center>
+    <img src="../res/blog/20151203-Zune-Shuffle-Analysis/Shift-Good-100000.PNG" width=250px align="middle"/>
+    <img src="../res/blog/20151203-Zune-Shuffle-Analysis/Zero-Index-Good-100000.PNG" width=250px align="middle"/>
+    <img src="../res/blog/20151203-Zune-Shuffle-Analysis/Swap-Good-100000.PNG" width=250px align="middle"/>
+    <img src="../res/blog/20151203-Zune-Shuffle-Analysis/Shift-Bad-100000.PNG" width=250px align="middle"/>
+    <img src="../res/blog/20151203-Zune-Shuffle-Analysis/Zero-Index-Bad-100000.PNG" width=250px align="middle"/>
+    <img src="../res/blog/20151203-Zune-Shuffle-Analysis/Swap-Bad-100000.PNG" width=250px align="middle"/>
+  </center>
+  <br/>
+  <p>Well, crap. They all look the same. Each of these implementations, following different rules, produce nearly the same result given enough shuffles. However, this still doesn't address the original question - is the Zune's shuffle biased? Having produced this data, I settled in for an evening of shuffling a playlist of 25 songs, and recording the index of the second song in the list, 1000 times.</p>
+  <br/>
+  <center><img src="../res/blog/20151203-Zune-Shuffle-Analysis/Zune-Shuffle-1000.PNG" width=250px align="middle"/></center>
+  <br/>
+  <p>After 1000 shuffles, the graph looked extremely familiar. The deviation between peaks and valleys didn't differ much from the original sets of data created from the script. Across the board, there did not seem to be any weighted bias.</p>
+  <center><h2>Conclusion</h2></center>
+  <p>On an admittedly small sample set, it does not appear that the Zune has a biased shuffle. So, I thought on it for a while. I had felt very confident that there was <i>something</i> fishy going on behind the scenes, causing me to experience the same handful of songs over and over. However, I could now say fairly confidently that this was not that case.</p>
+  <p>After listening to some music for a while after that, I realized that all of the songs that I felt like I had <i>just</i> heard were all songs that had been in the list for months or more. The songs that I felt were refreshing to hear again, were added in the last few weeks, and I maybe even heard earlier that day.</p>
+  <p>In the end, I was able to show that shuffling data produces 'consistently random' results, and that there appears to be no attempt to skew a shuffle, on the Zune. You be wondering why I presented all of this information this way, wrapping up with the statement that I've actually accomplished nothing at all. Well, all of the time that I spent restarting my computer, creating graphs, and trying to fix my shuffles was spliced with a significant amount of time shuffling the playlist on my Zune and recording the results. By the time I finished collecting this data, I had invested several days into this whole project, and then I was able to create the graphs that showed that this was all pointless.</p>
+</div>

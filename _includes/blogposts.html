@@ -3,11 +3,11 @@
   <li>
     <a class="notlink" data-toggle="collapse"  href="#collapseFour">Blog</a>
   </li>
-    {% if page.selected-blog %}
-    <div id="collapseFour" class="panel-collapse collapse in">
-    {% else %}
-    <div id="collapseFour" class="panel-collapse collapse">
-    {% endif %}
+  {% if page.selected-blog %}
+  <div id="collapseFour" class="panel-collapse collapse in">
+  {% else %}
+  <div id="collapseFour" class="panel-collapse collapse">
+  {% endif %}
     <ul  class="nav nav-sidebar">
       {% if page.selected-150928 %}
       <li class="active-link">
@@ -15,6 +15,13 @@
       <li>
       {% endif %}
         <a href="/posts/20150928-MediaComplete-PreMortem.html">2015/09/28 - MediaComplete Pre-Mortem</a>
+      </li>
+      {% if page.selected-151203 %}
+      <li class="active-link">
+      {% else %}
+      <li>
+      {% endif %}
+        <a href="/posts/20151203-Zune-Shuffle-Analysis.html">2015/12/03 - Zune Shuffle Analysis</a>
       </li>
     </ul>
   </div>
