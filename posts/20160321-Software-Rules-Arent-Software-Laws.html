@@ -48,7 +48,7 @@ comments: true
 }</code></pre>
   <p>This simple Swift example uses RxSwift in order to create the Observable needed to trigger the navigation action. It also demonstrates how data can even be passed on to the next view via its ViewModel. An argument against this pattern is the idea that allowing the <code>data</code> object to be visible in this manner in the ViewController has the potential for allowing people to do business logic in the View. Unfortunately, even if we don't use the <code>data</code> variable in this way, it would still be visibile throught the ViewModel, that belongs to the ViewController. We would have to make the variable private in order to protect against that, but if we need to display some data on that object on this View, then that can't be done either. It should fall on the developer to use follow these rules appropriately and to not perform business logic where it shouldn't happen.</p>
   <p>The idea of MVVM is to improve the quality of code by enhancing testability, and the rules are loose guidelines to assist this. If they are taken too literally, and enforced unnecessarily just because 'that breaks the rules', then worse patterns will be implemented under the guise of being better, because they adhere to these guidelines.</p>
-<b>Update:</b><p> After having a few discussions, this solution was suggested in order to remove the reference to the <code>DataObject</code in the View. I like it.</p>
+<b>Update:</b><p> After having a few discussions, this solution was suggested in order to remove the reference to the <code>DataObject</code> in the View. I like it.</p>
 <pre><code class="block">class ViewModel {
     var navigationVariable = Variable&lt;NewViewModel&gt;()
     private var data:DataObject
