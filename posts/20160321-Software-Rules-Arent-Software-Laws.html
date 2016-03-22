@@ -18,7 +18,7 @@ comments: true
   <p>The problems come when you now need to trigger navigation on the result of some business logic. The common solution is to implement a singleton 'Navigator' class, which takes an innocuous variable like a <code>String</code> or <code>enum</code> and it uses its own reference to the View's navigation functions in order to instantiate the corresponding View and execute the navigation. This also allows the Navigator to be mocked for the sake of unit testing, so it doesn't actually attempt to initialize Views. While this can work, it requires the Navigator to have logic which parses whatever parameters are provided and translates that into a usable View. This means that the more screens there are, the more the Navigator grows in complexity. This problem stems from the first rule. If the navigation is based on the resulf of a service request, for example, then it could be considered business logic - regardless of the fact that it is fundamentally rooted in the View. Therefore, it would violate that first rule, and should not be done in accordance with MVVM.</p>
   <p>However, if we acknowledge that there is the possibility that some work may need to happen in the View, we can completely get rid of the Navigator. We can still control and test the business logic in the ViewModel, without creating something like a Navigator in order to do work, and instead handle that behavior in the View. Potentially, each ViewModel could contain and invoke a Delegate, or Observable that the View is observing. The View could navigate on the trigger of the Observable. If there were multiple potential places to navigate, the ViewModel could invoke that Observable with a parameter of an enum or data object, or both if need be. The View would still have to execute the switch:case statement and navigate accordingly, but that's not more information than the Navigator implementation had, and it's limited to only the options that the single View can navigate to, as opposed to a massive singleton.</p>
 <pre><code class="block">class ViewModel {
-    var navigationObservable = Variable&lt;DataObject&gt;()
+    var navigationVariable = Variable&lt;DataObject&gt;()
     var data:DataObject
 
     init(data:DataObject){
@@ -34,7 +34,7 @@ comments: true
   override func viewDidLoad(){
     super.viewDidLoad()
 
-    _ = self.viewModel.data.asObservable()
+    _ = self.viewModel.navigationVariable.asObservable()
       .takeUntil(self.rx_deallocated)
       .subscribeNext { data in
 
