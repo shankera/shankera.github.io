@@ -1,6 +1,6 @@
-.container { 
-	position:relative; 
-	padding:0 0 0 250px; 
+.container {
+	position:relative;
+	padding:0 0 0 250px;
 	width=100%;
 }
 .site-title{
@@ -18,7 +18,7 @@ padding-left:20px;
     width:225px;
 	height:100%;
 }
-#content { 
+#content {
     margin:0px 0 40px 0;
 	padding-top:20px;
 }
@@ -119,14 +119,15 @@ body{
   color:#909090;
   }
 pre, code {
+	padding: 0px;
 	background-color:#000000;
   color:#909090;
   border::#909090;
   border-style:solid;
   border-width:1px;
   }
-  .link:hover{ 
-  opacity: 0.3; 
+  .link:hover{
+  opacity: 0.3;
   }
   .block{
   border-width:0;
