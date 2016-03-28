@@ -9,8 +9,7 @@ title: Lesson 1&#58; Sorting Algorithms - English
 	<h2>Bubble Sort</h2>
 	<p>The bubble sort is a sorting algorithm. Two elements of the set are compared. If the second item isn't the largest, the elements are switched. Then, the next elements are compared. When all the elements are compared, the largest are moved to the end of the set. This has its advantages and disadvantages. The Bubble sort's main advantage is that it is easy to implement. However, this algorithm is very slow. For larger sets, there are better algorithms. Its worst case and average time complexity is O(n<sup>2</sup>). The best case time complexity is O(n), which are bad cases.</p>
 	<h3>Example Code</h3>
-	<pre>
-		<code class="block">def main():
+	<pre><code class="block">def main():
 	list = [6,5,37,2,7,3,6,42,67,3,17,25]
 	sorted = False
 	while not sorted:
@@ -19,8 +18,7 @@ title: Lesson 1&#58; Sorting Algorithms - English
 		 if list[item] &gt; list[item+1]:
 			sorted = False
 			list[item], list[item+1] = list[item+1], list[item]
-main()</code>
-						</pre>
+main()</code></pre>
 						<h2>Quick Sort</h2>
 The quick sort is another sorting algorithm. An item of the list is selected. Items greater than it in the set are moved after it in the list, and items smaller than it are moved before it in the list. This is recursively done for every element of the sub-lists of greater and smaller elements. This sort is more difficult to implement than the Bubble Sort, but it is more efficient. It has a best-case and average time complexity of O(n log n). The worst case is O(n<sup>2</sup>).
 </div>
