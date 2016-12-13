@@ -7,7 +7,7 @@ comments: true
 ---
 <div id="content">
   <p>Retain cycles in iOS are surprisingly easy to introduce, as I've discovered over a relatively short time learning Swift and iOS developent. Personally I think that there are a few key things that a developer should be aware of to mitigate retain cycles, and honestly, some of them are not as obvious as you might hope.</p>
-  <h2>How Do Retain Cycles Happen?</h2>
+<center><h2>How Do Retain Cycles Happen?</h2></center>
   <p>In order to properly understand retain cycles in the most simple ways that they exist, I think that it is first important to understand how the <code>ViewController</code> lifecycle works in iOS. In the most simple terms, when a <code>ViewController</code> is created, it is appended to a stack of active <code>ViewControllers</code>. When an app navigates backwards off of a <code>ViewController</code>, that particular instance of the <code>ViewController</code> is popped off of the stack and <code>deallocated</code>. When a new <code>ViewController</code> is added to the stack then the current <code>ViewContoller</code> is retained the the memory of the app. The problem of retain cycles manifests when a strong reference to the <code>ViewController</code> is held by another object and prevents it from being <code>deallocated</code>. </p>
   <p>For the sake of future examples, I would like to define a <code>ViewController</code> as an object in code that exists with components that relate to a view, and a <code>ViewModel</code> which belongs to a <code>ViewController</code> and contains both business logic that the <code>ViewController</code> uses to display information and related to external services in a way that we are going to find irrelevant.</p>
   <p>As a simple example, this VC-VM example looks like this.
@@ -36,51 +36,51 @@ comments: true
         //Does Something
     }
 }</pre></code>
-<h2>Easy Ways to Introduce Retain Cycles</h2>
+<center><h2>Easy Ways to Introduce Retain Cycles</h2></center>
   <p>There are essentially 3 main ways to introduce a strong reference to <code>self</code> that will cause a retain cycle. By assigning a function pointer, by passing a function as a parameter, and by wrapping a reference to self in a closure.</p>
-  <h3>Closures</h3>
+<center><h3>Closures</h3></center>
   <p>All closures in Swift where self is referenced introduces a strong reference to <code>self</code>. In all of the issues that are commonly faced with retain cycles in Swift, the solution is usually to wrap the offending code in a closure and explicity define self as <code>unowned</code> or <code>weak</code>. Defining a variable outside of a closure, and referencing it within the closure creates a strong reference to <code>self</code>. This includes instances where <code>self</code> <i>is not explicitly used</i>. A strong reference to <code>self</code> is created with the implicit reference to <code>self</code>. For this reason, and others that I will outline later, I think it is a good idea to get in the habit of explicitly using <code>self</code> in Swift wherever possible. It makes finding possible retain cycles much easier to find.</p>
 <pre><code class="block">self.viewModel.toggleVisiblity = { component.alpha = 0 }</pre></code>
     <p>This code introduces a retain cycle through the implicit reference to <code>self</code>. Even if self was used explicitly, the retain cycle would exist, since the class level object <code>component</code> was referenced within the scope of the closure.</p>
-<h3>Solution</h3>
+<center><h3>Solution</h3></center>
 <pre><code class="block">self.viewModel.toggleVisibility = {[unowned self] in
     self.component.alpha = 0
 }</pre></code>
     <p>This solution enforces an unowned reference to <code>self</code> within the closure, so if the <code>ViewController</code> is deallocated, there is no retain cycle between the class and the closure.
-<h3>Function Pointers</h3>
+<center><h3>Function Pointers</h3></center>
   <p> In our <code>ViewModel</code>, we have a function pointer property that we will invoke within the viewModel that we need to set in the <code>ViewController</code>. The simplest way to do this is by writing
 <pre><code class="block">self.viewModel.toggleVisibility = self.toggleComponentVisibiliy</code></pre>
     in our <code>ViewController</code>. Unfortunately this introduces a retain cycle, since a strong reference is created between the <code>ViewModel</code>'s property and our function defined in the <code>ViewController</code>. </p>
-<h3>Solution</h3>In order to avoid this, we would need to assign this property with
+<center><h3>Solution</h3></center>
+    <p>In order to avoid this, we would need to assign this property with
 <pre><code class="block">self.viewModel.toggleVisibility = {[unowned self] in
          self.toggleComponentVisibility()
 }</pre></code>
     By defining <code>self</code> as <code>unowned</code>, we create a weak reference between <code>self</code> and our <code>ViewModel</code>'s property. Because of this, if our <code>ViewController</code> is popped off of the navigation stack and <code>dealloc</code> is invoked, the reference that the <code>ViewModel</code> has to the <code>ViewController</code> will not prevent ARC from <code>deallocating</code> the <code>ViewController</code>.</p>
-<h3>Function Parameters</h3>
+<center><h3>Function Parameters</h3></center>
     <p>Now, lets say we want to pass our <code>callbackFunction</code> from our <code>ViewController</code> back to our <code>ViewModel</code>. We can do this simply by passing our function as a parameter which matches the expected function pointer signature of the function in the <code>ViewModel</code> from within our <code>ViewController</code>.
 <pre><code class="block">self.viewModel.serviceCall(self.callbackFunction)</pre></code>
     This works because the function parameter is expecting a void function pointer, and the function being passed is a void function. In Swift, however, function parameters are passed by reference, and this ultimately creates a strong reference to the <code>ViewController</code>.</p>
-    <h3>Solution</h3>
+<center><h3>Solution</h3></center>
     <p>We can force this to be an unowned reference to self by wrapping the parameter in a closure.</p>
 <pre><code class="block">self.viewModel.serviceCall({ [unowned self] str in
         self.callbackFunction(str)
 })</code></pre>
     <p>This accomplishes the same result as the Function Pointer solution. The explicit reference to <code>self</code> that became a strong reference has been wrapped in a closure that has <code>self</code> forced as unonwned. This allows our ViewController to be properly <code>deallocatted</code>.</P>
-<h3>Bonus Round: RxSwift/RxCocoa</h3>
+<center><h3>Bonus Round: RxSwift/RxCocoa</h3></center>
     <p>For those of you who use RxSwift or RxCocoa in your projects, there is a very common way that retain cycles are introduced.</P>
 <pre><code class="block">Observable.just(element)
-    .subscribeNext{
+    .subscribeNext{ element in
         self.doSomething(element)
-    }
-}</code></pre>
+    }</code></pre>
     <p>Subscribe blocks are closures, and therefore, references to <code>self</code> need to be unowned or weak. This applies for <code>onNext,</code> <code>onError</code>, and <code>onCompleted</code> as well as any other operators that include closures that would reference <code>self</code> - custom or not. This is one of the main reasons I think that it is important to explicitly reference <code>self</code>, because with <code>Observable</code> chains, it's easy to introducde implicit references without much thought.</p>
-<h3>Solution</h3>
+<center><h3>Solution</h3></center>
 <pre><code class="block">Observable.just(element)
-    .subscribeNext{ [unowned self] in
+    .subscribeNext{ [unowned self] element in
         self.doSomething(element)
     }.addDisposableTo(self.disposeBag)</pre></code>
 <p>In this solution, not only do we have to explicitly define <code>self</code> as <code>unowned</code>, but we have to add the entire <code>Observable</code> to a <code>DisposeBag</code>. The <code>DisposeBag</code> is an object that belongs to the RxCocoa library that should live as a property on the class that owns the <code>Observable</code>. The <code>DisposeBag</code> gets cleaned up with the parent class when it gets <code>deallocated</code>. If this is not done, the subscription to the <code>Observable</code> will create a retain cycle, which will cause your subscription to live longer tha the lifetime of the screen it is on.</p>
-<h2>Conclusion</h2>
+<center><h2>Conclusion</h2></center>
 <p>Unfortunately, all of the solutions offered make the code look really bad. This gets amplified when the code includes lots of Reactive sequences, with function parameters, and callbacks. The simple implementations often introduce retain cycles that can render the code unreadable. This ends up being my biggest problem with Swift as a language. While there can be some refactoring done to make the code more readable, a lot of the potential for clean, readable code actually ends up causing severe issues that can render an app unusable.</p>
-<h2>Further Reading</h2>
+<center><h2>Further Reading</h2></center>
 <p>For more explicit information on the nature retain cycles, how to avoid or resolve them, or just further reading, I recommend reading <a href="http://krakendev.io/blog/weak-and-unowned-references-in-swift" class=pinklink>this article at KrakenDev.io</a> which I used as a resource while troubleshooting my own issues, and while providing this short writeup. For a more technical explanation of why retain cycles occur at an Obj-C level, read <a href="https://www.cocoawithlove.com/2009/07/rules-to-avoid-retain-cycles.html" class=pinklink>this article by Matt Gallagher</a>.</p>
