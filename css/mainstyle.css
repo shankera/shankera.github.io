@@ -82,6 +82,10 @@ a.pinklink:hover{
     color: #909090;
 	background-color: #3D003D;
 }
+.nav-sidebar-secondary > a{
+	color: #909090;
+	background-color: #590859
+}
 .nav-sidebar > li > a:focus{
 	background-color:transparent;
 	color:#909090;

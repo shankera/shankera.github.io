@@ -1,42 +1,64 @@
 
 <ul class="nav nav-sidebar">
-  <li>
-    <a class="notlink" data-toggle="collapse"  href="#collapseFour">Blog</a>
-  </li>
-  {% if page.selected-blog %}
-  <div id="collapseFour" class="panel-collapse collapse in">
-  {% else %}
-  <div id="collapseFour" class="panel-collapse collapse">
-  {% endif %}
-    <ul  class="nav nav-sidebar">
-      {% if page.selected-150928 %}
-      <li class="active-link">
-      {% else %}
-      <li>
-      {% endif %}
-        <a href="/posts/20150928-MediaComplete-PreMortem.html">2015/09/28 - MediaComplete Pre-Mortem</a>
-      </li>
-      {% if page.selected-151203 %}
-      <li class="active-link">
-      {% else %}
-      <li>
-      {% endif %}
-        <a href="/posts/20151203-Zune-Shuffle-Analysis.html">2015/12/03 - Zune Shuffle Analysis</a>
-      </li>
-      {% if page.selected-160321 %}
-      <li class="active-link">
-      {% else %}
-      <li>
-      {% endif %}
-        <a href="/posts/20160321-Software-Rules-Arent-Software-Laws.html">2016/03/21 - Software Rules Aren't Software Laws</a>
-      </li>
-      {% if page.selected-161213 %}
-      <li class="active-link">
-      {% else %}
-      <li>
-      {% endif %}
-        <a href="/posts/20161213-Addressing-Retain-Cycles.html">2016/03/21 - Addressing Retain Cycles</a>
-      </li>
-    </ul>
-  </div>
+    <li>
+        <a class="notlink" data-toggle="collapse"  href="#collapseFour">Blog</a>
+    </li>
+    {% if page.selected-blog %}
+    <div id="collapseFour" class="panel-collapse collapse in">
+    {% else %}
+    <div id="collapseFour" class="panel-collapse collapse">
+    {% endif %}
+        <ul class="nav nav-sidebar">
+            <li class="nav nav-sidebar-secondary">
+                <a class="notlink" data-toggle="collapse"  href="#collapse2015">2015</a>
+            </li>
+            {% if page.selected-blog-2015 %}
+            <div id="collapse2015" class="panel-collapse collapse in">
+            {% else %}
+            <div id="collapse2015" class="panel-collapse collapse">
+            {% endif %}
+                <ul class="nav nav-sidebar">
+                    {% if page.selected-150928 %}
+                    <li class="active-link">
+                    {% else %}
+                    <li>
+                    {% endif %}
+                        <a href="/posts/20150928-MediaComplete-PreMortem.html">09/28 - MediaComplete Pre-Mortem</a>
+                    </li>
+                    {% if page.selected-151203 %}
+                    <li class="active-link">
+                    {% else %}
+                    <li>
+                    {% endif %}
+                        <a href="/posts/20151203-Zune-Shuffle-Analysis.html">12/03 - Zune Shuffle Analysis</a>
+                    </li>
+                </ul>
+            </div>
+            <li class="nav-sidebar-secondary">
+                <a class="notlink" data-toggle="collapse"  href="#collapse2016">2016</a>
+            </li>
+            {% if page.selected-blog-2016 %}
+            <div id="collapse2016" class="panel-collapse collapse in">
+            {% else %}
+            <div id="collapse2016" class="panel-collapse collapse">
+            {% endif %}
+                <ul class="nav nav-sidebar">
+                {% if page.selected-160321 %}
+                    <li class="active-link">
+                    {% else %}
+                    <li>
+                    {% endif %}
+                        <a href="/posts/20160321-Software-Rules-Arent-Software-Laws.html">03/21 - Software Rules Aren't Software Laws</a>
+                    </li>
+                    {% if page.selected-161213 %}
+                    <li class="active-link">
+                    {% else %}
+                    <li>
+                    {% endif %}
+                        <a href="/posts/20161213-Addressing-Retain-Cycles.html">12/13 - Addressing Retain Cycles</a>
+                    </li>
+                </ul>
+            </div>
+        </ul>
+    </div>
 </ul>
