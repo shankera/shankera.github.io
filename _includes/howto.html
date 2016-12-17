@@ -1,0 +1,20 @@
+<ul class="nav nav-sidebar">
+    <li>
+        <a class="notlink" data-toggle="collapse"  href="#collapseThree">How To</a>
+    </li>
+    {% if page.selected-howto %}
+    <div id="collapseThree" class="panel-collapse collapse in">
+    {% else %}
+    <div id="collapseThree" class="panel-collapse collapse">
+    {% endif %}
+        <ul  class="nav nav-sidebar">
+            {% if page.selected-jenkins %}
+            <li class="active-link">
+            {% else %}
+            <li>
+            {% endif %}
+                <a href="/how-to/jenkins.html">Jenkins</a>
+            </li>
+        </ul>
+    </div>
+</ul>

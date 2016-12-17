@@ -1,0 +1,41 @@
+<ul class="nav nav-sidebar">
+    <li>
+        <a class="notlink" data-toggle="collapse" href="#collapseTwo">한국어 공부</a>
+    </li>
+    {% if page.selected-study %}
+    <div id="collapseTwo" class="panel-collapse collapse in">
+    {% else %}
+    <div id="collapseTwo" class="panel-collapse collapse">
+    {% endif %}
+        <ul class="nav nav-sidebar">
+            {% if page.selected-l1en %}
+            <li class="active-link">
+            {% else %}
+            <li>
+            {% endif %}
+                <a href="/lessons/1-en.html">제1 일과 –  영어</a>
+            </li>
+            {% if page.selected-l1kr %}
+            <li class="active-link">
+            {% else %}
+            <li>
+            {% endif %}
+                <a href="/lessons/1-kr.html">제1 일과 – 한국어</a>
+            </li>
+            {% if page.selected-l2en %}
+            <li class="active-link">
+            {% else %}
+            <li>
+            {% endif %}
+                <a href="/lessons/2-en.html">제2 일과 – 영어</a>
+            </li>
+            {% if page.selected-l2kr %}
+            <li class="active-link">
+            {% else %}
+            <li>
+            {% endif %}
+                <a href="/lessons/2-kr.html">제2 일과 – 한국어</a>
+            </li>
+        </ul>
+    </div>
+</ul>
