@@ -84,10 +84,10 @@ a.pinklink:hover{
 }
 .nav-sidebar-secondary > a{
 	color: #909090;
-	background-color: #590859
+	background-color: #560e56
 }
 .nav-sidebar > li > a:focus{
-	background-color:transparent;
+	background-color:#560e56;
 	color:#909090;
 }
 .nav-sidebar > li > a:hover, .nav-sidebar > li > .notlink:hover{
@@ -127,12 +127,9 @@ body{
 	background-color:#00001E;
   color:#909090;
   }
-pre, code {
-	background-color:#00001E;
-  color:#909090;
-  border::#909090;
-  border-style:solid;
-  border-width:1px;
+code {
+	background-color:#686868;
+  color:#00001E;
 }
 b{
 	font-size: 20px;
@@ -140,8 +137,14 @@ b{
 .link:hover{
   opacity: 0.3;
 }
-.block{
-  border-width:0;
+pre{
+border-width:1px;
+border::#909090;
+
+	}
+pre, .block{
+  background-color:#00001E;
+  color:#909090;
 }
 footer{
 	margin-top:30px;
