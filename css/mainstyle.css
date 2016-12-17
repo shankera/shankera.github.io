@@ -82,8 +82,12 @@ a.pinklink:hover{
     color: #909090;
 	background-color: #3D003D;
 }
+.nav-sidebar-secondary > a{
+	color: #909090;
+	background-color: #560e56
+}
 .nav-sidebar > li > a:focus{
-	background-color:transparent;
+	background-color:#560e56;
 	color:#909090;
 }
 .nav-sidebar > li > a:hover, .nav-sidebar > li > .notlink:hover{
@@ -103,10 +107,6 @@ a.pinklink:hover{
 a:active {
     color: #898989;
     text-decoration: none;
-}
-.nav-sidebar-secondary > a {
-	color: #909090;
-	background-color: #560e56
 }
 #hairlogo{
 	height: 140px;
