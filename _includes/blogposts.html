@@ -58,6 +58,24 @@
                     </li>
                 </ul>
             </div>
+            <li class="nav-sidebar-secondary">
+                <a data-toggle="collapse"  href="#collapse2017">2017</a>
+            </li>
+            {% if page.selected-blog-2017 %}
+            <div id="collapse2017" class="panel-collapse collapse in">
+            {% else %}
+            <div id="collapse2017" class="panel-collapse collapse">
+            {% endif %}
+                <ul class="nav nav-sidebar">
+                    {% if page.selected-170503 %}
+                    <li class="active-link">
+                    {% else %}
+                    <li>
+                    {% endif %}
+                        <a href="/posts/20170503-Legacy-Code-and-Agile-Processes.html">05/03 - Integrating Legacy Code with Agile Processes</a>
+                    </li>
+                </ul>
+            </div>
         </ul>
     </div>
 </ul>
