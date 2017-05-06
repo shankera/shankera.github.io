@@ -237,3 +237,6 @@ footer{
 ::-webkit-scrollbar {
     display: none;
 }
+div {
+	-ms-overflow-style:none;
+}
