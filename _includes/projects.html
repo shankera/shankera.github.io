@@ -8,6 +8,13 @@
     <div id="collapseOne" class="panel-collapse collapse">
     {% endif %}
         <ul  class="nav nav-sidebar">
+            {% if page.selected-3-1leads %}
+            <li class="active-link">
+            {% else %}
+            <li>
+            {% endif %}
+                <a href="/projects/3-1leads.html">3-1Leads.com</a>
+            </li>
             {% if page.selected-mediacomplete %}
             <li class="active-link">
             {% else %}
