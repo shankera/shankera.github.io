@@ -20,6 +20,15 @@
             {% include /blogposts.html %}
             {% include /lessons.html %}
             {% include /howto.html %}
+                <ul class="nav nav-sidebar">
+                    {% if page.selected-about %}
+                    <li class="active-link">
+                    {% else %}
+                    <li>
+                    {% endif %}
+                        <a href="/jerseys.html">My Jerseys</a>
+                    </li>
+                </ul>
         </div>
     </div>
 </div>
